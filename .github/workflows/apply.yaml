@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths-ignore:
-    - '.github/**'
+      - '.github/**'
 
 
 env:
@@ -13,8 +13,7 @@ env:
   AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
 
 jobs:
-
- Checkov:
+  Checkov:
     name: 'Check TF Vuls'
     runs-on: ubuntu-latest
     steps:
@@ -29,11 +28,11 @@ jobs:
         with:
           directory: .
           framework: terraform
-  
   Apply:
     name: 'Apply Changes'
     runs-on: ubuntu-latest
     environment: production
+    needs: Checkov
 
     defaults:
       run:
